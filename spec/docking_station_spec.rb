@@ -23,8 +23,13 @@ describe DockingStation do
   end
 
   it 'Should not dock any bikes if the station is full' do
-    ds = DockingStation.new
-    DockingStation::DEFAULT_CAPACITY.times { ds.dock(Bike.new) }
+    ds = DockingStation.new(10)
+    ds.capacity.times { ds.dock(Bike.new) }
     expect { ds.dock(Bike.new) }.to raise_error('Dock full.')
+  end
+
+  it 'Should set default capacity to DEFAULT_CAPACITY' do
+    ds = DockingStation.new
+    expect(ds.capacity).to eq 20
   end
 end
