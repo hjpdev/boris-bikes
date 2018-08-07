@@ -24,7 +24,7 @@ describe DockingStation do
 
   it 'Should not dock any bikes if the station is full' do
     ds = DockingStation.new
-    10.times { ds.dock(Bike.new) }
+    20.times { ds.dock(Bike.new) }
     expect { ds.dock(Bike.new) }.to raise_error('Dock full.')
   end
 end
