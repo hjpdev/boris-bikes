@@ -12,13 +12,13 @@ class DockingStation
 
   def release_bike
     raise('No bikes in station.') if empty?
+    @bikes.last.working?
     @bikes.pop
-    Bike.new
   end
 
   def dock(bike)
     raise('Dock full.') if full?
-    @bikes << bike
+    @bikes << bike.working?(false)
   end
 
   private
@@ -31,4 +31,5 @@ class DockingStation
     @bikes.empty?
   end
 end
+
 
