@@ -12,13 +12,15 @@ class DockingStation
 
   def release_bike
     raise('No bikes in station.') if empty?
-    @bikes.last.working?
-    @bikes.pop
+    raise('No working bikes available') if @bikes.all? { |b| b.condition == false }
+    first_working_index = @bikes.index { |b| b.condition }
+    @bikes.delete_at(first_working_index)
   end
 
-  def dock(bike)
+  def dock(bike, condition=true)
     raise('Dock full.') if full?
-    @bikes << bike.working?(false)
+    bike.condition = condition
+    @bikes << bike
   end
 
   private
@@ -31,5 +33,3 @@ class DockingStation
     @bikes.empty?
   end
 end
-
-
